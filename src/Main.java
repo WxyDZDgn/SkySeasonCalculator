@@ -2,7 +2,9 @@ import data.DearVanGogh;
 
 public class Main {
     public static void main(String[] args) {
-        Calculation calculation = new Calculation(46, 6, new DearVanGogh());
+        Calculation calculation = new Calculation(new DearVanGogh()).
+                setInitSeasonCandles(46).
+                setSeasonCandlesPerDay(6);
         calculation.print();
     }
 }

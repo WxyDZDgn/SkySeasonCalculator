@@ -15,9 +15,8 @@ public class Solution {
         this.purchaseChoice = Arrays.stream(purchaseChoice).map(int[]::clone).toArray(int[][]::new);
     }
 
-    void print(boolean printNumOfDays) {
-        if (printNumOfDays)
-            System.out.printf("方案最少需要 %d 天获得所有季节爱心。\n", totalDays);
+    void print() {
+//        System.out.printf("方案最少需要 %d 天获得所有季节爱心。\n", totalDays);
         assert travelSoltion.length == purchaseChoice.length;
         for (int i = 0; i < travelSoltion.length; ++i) {
             if (travelSoltion[i] <= 0) System.out.printf("第 %d 位先祖不需要加深友谊；\n", i + 1);
@@ -32,7 +31,4 @@ public class Solution {
         }
     }
 
-    void print() {
-        print(false);
-    }
 }

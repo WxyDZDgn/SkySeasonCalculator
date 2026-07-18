@@ -5,21 +5,36 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Calculation {
-    List<Solution> results = new ArrayList<>();
-    int minimumDays = 40000;
-    int initSeasonCandles;
-    int seasonCandlesPerDay;
-    Data seasonData;
+    private List<Solution> results = null;
+    private int minimumDays = 0;
+    private int initSeasonCandles = 0;
+    private int seasonCandlesPerDay = 6;
+    private final Data seasonData;
 
-    Calculation(int initSeasonCandles, int seasonCandlesPerDay, Data seasonData) {
-        this.initSeasonCandles = initSeasonCandles;
-        this.seasonCandlesPerDay = seasonCandlesPerDay;
+    public Calculation(Data seasonData) {
         this.seasonData = seasonData;
-        int[][] choice = Arrays.stream(seasonData.LAYERS()).map(int[]::clone).toArray(int[][]::new);
-        fun(choice, 0, 0);
     }
 
-    void calculation(int[][] choice) {
+    public Calculation setInitSeasonCandles(int x) {
+        assert x >= 0;
+        clearResults();
+        this.initSeasonCandles = x;
+        return this;
+    }
+
+    private void clearResults() {
+        results = null;
+        minimumDays = Integer.MAX_VALUE;
+    }
+
+    public Calculation setSeasonCandlesPerDay(int x) {
+        assert x >= 0;
+        clearResults();
+        this.seasonCandlesPerDay = x;
+        return this;
+    }
+
+    private void calculation(int[][] choice) {
         int daysForAncestor = 0;
         int costSeasonCandles = 0;
         int[] travel = new int[choice.length];
@@ -62,12 +77,12 @@ public class Calculation {
 
     }
 
-    static int ceil(int x, int y) {
+    private static int ceil(int x, int y) {
         assert x >= 0 && y > 0;
         return (x + y - 1) / y;
     }
 
-    void fun(int[][] choice, int i, int j) {
+    private void fun(int[][] choice, int i, int j) {
         if (i >= seasonData.LAYERS().length) {
             calculation(choice);
             return;
@@ -87,7 +102,8 @@ public class Calculation {
         }
     }
 
-    void print() {
+    public void print() {
+        calculation();
         System.out.printf("一共有 %d 个方案，所有方案最少需要 %d 天获得所有季节爱心。\n", results.size(), minimumDays);
         for (int i = 0; i < results.size(); i++) {
             System.out.printf("第 %d 个方案如下：\n", i + 1);
@@ -95,4 +111,13 @@ public class Calculation {
             System.out.println();
         }
     }
+
+    private void calculation() {
+        if (results == null) {
+            results = new ArrayList<>();
+            int[][] choice = Arrays.stream(seasonData.LAYERS()).map(int[]::clone).toArray(int[][]::new);
+            fun(choice, 0, 0);
+        }
+    }
+
 }
