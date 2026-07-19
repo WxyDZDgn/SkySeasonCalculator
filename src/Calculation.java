@@ -1,7 +1,6 @@
 import data.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Calculation {
@@ -43,7 +42,7 @@ public class Calculation {
             int ancestors = 0;
             double points = 0;
             for (int idx = 0; idx < seasonData.LAYERS()[a].length; ++idx) {
-                int layer = seasonData.LAYERS()[a][idx];
+                int layer = seasonData.LAYERS()[a][idx][1];
                 double dif = points - seasonData.POINTS()[a][curItemIndex][2];
                 // 最小的x使 -dif/10 <= x
                 if (dif < 0) {
@@ -91,14 +90,9 @@ public class Calculation {
             fun(choice, i + 1, 0);
             return;
         }
-        if (seasonData.LAYERS()[i][j] < 0) {
-            choice[i][j] = 1;
+        for (int k = seasonData.LAYERS()[i][j][0]; k <= seasonData.LAYERS()[i][j][1]; ++k) {
+            choice[i][j] = k;
             fun(choice, i, j + 1);
-        } else {
-            for (int k = 0; k <= seasonData.LAYERS()[i][j]; ++k) {
-                choice[i][j] = k;
-                fun(choice, i, j + 1);
-            }
         }
     }
 
@@ -115,7 +109,9 @@ public class Calculation {
     private void calculation() {
         if (results == null) {
             results = new ArrayList<>();
-            int[][] choice = Arrays.stream(seasonData.LAYERS()).map(int[]::clone).toArray(int[][]::new);
+            int n = seasonData.LAYERS().length;
+            int m = seasonData.LAYERS()[0].length;
+            int[][] choice = new int[n][m];
             fun(choice, 0, 0);
         }
     }

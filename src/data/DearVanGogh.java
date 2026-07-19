@@ -1,55 +1,27 @@
 package data;
 
 public class DearVanGogh extends Data {
-    public final static double[][][] POINTS = {{
-            {4, 40, 0},
-            {6, 30, 40},
-            {18, 30, 40},
-            {10, 40, 100},
-            {22, 40, 100},
-            {26, 100, 180},
-            {3, 0, 280}
+    public final static int[][][] rawPoints = {{
+            {0, 4}, {6, 18}, {10, 22}, {26}, {3}
     }, {
-            {12, 40, 0},
-            {6, 60, 40},
-            {8, (double) 80 / 3, 100},
-            {22, (double) 80 / 3, 100},
-            {22, (double) 80 / 3, 100},
-            {12, 50, 180},
-            {26, 50, 180},
-            {3, 0, 280}
+            {0, 12}, {6}, {22, 22, 8}, {26, 12}, {3}
     }, {
-            {4, 40, 0},
-            {8, 30, 40},
-            {18, 30, 40},
-            {8, 40, 100},
-            {22, 40, 100},
-            {26, 100, 180},
-            {3, 0, 280}
+            {0, 4}, {18, 8}, {22, 8}, {26}, {3}
     }, {
-            {12, 40, 0},
-            {6, 30, 40},
-            {18, 30, 40},
-            {10, (double) 80 / 3, 100},
-            {22, (double) 80 / 3, 100},
-            {22, (double) 80 / 3, 100},
-            {10, 100, 180},
-            {3, 0, 280}
+            {0, 12}, {18, 6}, {22, 22, 10}, {10}, {3}
     }};
-    public final static int[][] LAYERS = {
-            {1, 2, 2, 1, -1},
-            {1, 1, 3, 2, -1},
-            {1, 2, 2, 1, -1},
-            {1, 1, 3, 2, -1}
-    };
+    public static double[][][] POINTS = null;
+    public static int[][][] LAYERS = null;
 
     @Override
     public double[][][] POINTS() {
-        return DearVanGogh.POINTS;
+        if (POINTS == null) POINTS = Data.getPoint(rawPoints);
+        return POINTS;
     }
 
     @Override
-    public int[][] LAYERS() {
-        return DearVanGogh.LAYERS;
+    public int[][][] LAYERS() {
+        if (LAYERS == null) LAYERS = Data.getLayer(rawPoints);
+        return LAYERS;
     }
 }

@@ -24,7 +24,7 @@ public class Solution {
 
             for (int j = 0; j < purchaseChoice[i].length; ++j) {
                 if (purchaseChoice[i][j] <= 0) System.out.printf("不需要兑换第 %d 层的任何节点；\n", j + 1);
-                else if (purchaseChoice[i][j] >= data.LAYERS()[i][j])
+                else if (purchaseChoice[i][j] >= data.LAYERS()[i][j][1])
                     System.out.printf("兑换第 %d 层的所有节点；\n", j + 1);
                 else System.out.printf("兑换第 %d 层花费季蜡最少的 %d 个节点；\n", j + 1, purchaseChoice[i][j]);
             }

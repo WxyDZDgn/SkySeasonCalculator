@@ -4,6 +4,6 @@ public abstract class AbstractData {
 
     public abstract double[][][] POINTS();
 
-    public abstract int[][] LAYERS();
+    public abstract int[][][] LAYERS();
 }
 
